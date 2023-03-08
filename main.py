@@ -1,40 +1,49 @@
 # import standar library on python
-import os
+from os import getenv
+
 # import thirdy parthy modules
-import typer
-from rich import print, pretty, table
 import openai
+import typer
 from dotenv import load_dotenv
 from requests import Response
+
+# import my modules
+from response_chat import response_chat_gpt
+from console import console
+from ComandsExit import comands_exit
 
 # chargue env variables
 load_dotenv()
 
 
 def main(name: str) -> str:
+    """This function interact with chatgpt"""
 
-    openai.api_key = os.getenv("API_KEY")
+    openai.api_key = getenv("API_KEY")
 
-    print(f"[bold italic blue]hello {name}[/bold italic blue]")
+    console.print("Welcome to Chat-GPT CLI", style="bold green")
+    console.print(f"Hello {name}", style="bold blue")
 
     while True:
 
-        content: str = input("\n¿Que pregunta quieres hacerme? ")
+        content: str = input(
+            "\n¿Qué pregunta quieres hacerme? ")
 
-        if content == "exit":
-            return
+        if content in comands_exit:
 
-        response: Response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": content},
-            ],
-            max_tokens=120,
+            confirmation: str = input(
+                "\n¿De verdad quieres salir? [yes, no] ")
+            if confirmation == "yes":
+                console.print(
+                    "\nAdiós, espero volver a verte pronto", style="bold green")
+                break
+            else:
+                continue
 
-        )
+        response: Response = response_chat_gpt(content=content)
 
-        print(response["choices"][0]["message"]["content"])
+        console.print(response["choices"][0]["message"]
+                      ["content"], style="bold italic")
 
 
 if __name__ == "__main__":
