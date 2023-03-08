@@ -16,8 +16,7 @@ from ComandsExit import comands_exit
 load_dotenv()
 
 
-def main(name: str) -> str:
-    """This function interact with chatgpt"""
+def main(name: str) -> None:
 
     openai.api_key = getenv("API_KEY")
 
@@ -27,20 +26,22 @@ def main(name: str) -> str:
     while True:
 
         content: str = input(
-            "\n¿Qué pregunta quieres hacerme? ")
+            "\n¿Qué pregunta quieres hacerme? ").lower()
+
+        if content == "":
+            continue
 
         if content in comands_exit:
-
             confirmation: str = input(
-                "\n¿De verdad quieres salir? [yes, no] ")
+                "\n¿De verdad quieres salir? [yes, no] ").lower()
             if confirmation == "yes":
                 console.print(
-                    "\nAdiós, espero volver a verte pronto", style="bold green")
+                    f"\nAdiós {name}, espero volver a verte pronto", style="bold green")
                 break
             else:
                 continue
 
-        response: Response = response_chat_gpt(content=content)
+        response: list[dict] = response_chat_gpt(content=content)
 
         console.print(response["choices"][0]["message"]
                       ["content"], style="bold italic")
