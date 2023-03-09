@@ -10,14 +10,14 @@ from requests import Response
 # import my modules
 from response_chat import response_chat_gpt
 from console import console
-from CommandsExit import comands_exit
-from CommandsConfirm import comands_confirm
+from ExitCommands import exit_commands
+from ConfirmCommands import comands_confirm
 from text_to_speech import text_to_speech
 # chargue env variables
 load_dotenv()
 
 
-def main(name: str) -> None:
+def main(name: str, speech: bool) -> None:
 
     openai.api_key = getenv("API_KEY")
 
@@ -32,7 +32,7 @@ def main(name: str) -> None:
         if content == "":
             continue
 
-        if content in comands_exit:
+        if content in exit_commands:
             confirmation: str = input(
                 "\n¿De verdad quieres salir? [yes, no] ").lower()
             if confirmation in comands_confirm:
@@ -48,7 +48,8 @@ def main(name: str) -> None:
 
         console.print(response_text, style="bold italic")
 
-        text_to_speech(text=response_text)
+        if speech:
+            text_to_speech(text=response_text)
 
 
 if __name__ == "__main__":
