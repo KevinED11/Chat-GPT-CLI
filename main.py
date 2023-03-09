@@ -1,18 +1,19 @@
-# import standar library on python
+from subprocess import Popen
+from os import remove as os_remove, getcwd as os_getcwd
+from gtts import gTTS
 from os import getenv
 
-# import thirdy parthy modules
 import openai
 import typer
 from dotenv import load_dotenv
 from requests import Response
 
-# import my modules
 from response_chat import response_chat_gpt
 from console import console
 from ExitCommands import exit_commands
 from ConfirmCommands import confirm_commands
 from text_to_speech import text_to_speech
+
 # chargue env variables
 load_dotenv()
 
@@ -33,9 +34,10 @@ def main(name: str, speech: bool) -> None:
             continue
 
         if content in exit_commands:
-            confirmation: str = input(
+            exit_confirmation: str = input(
                 "\n¿De verdad quieres salir? [yes, no] ").lower()
-            if confirmation in confirm_commands:
+
+            if exit_confirmation in confirm_commands:
                 console.print(
                     f"\nAdiós {name}, espero volver a verte pronto y recuerda que eres el mejor y seras exitoso.", style="bold green")
                 break
