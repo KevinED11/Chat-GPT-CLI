@@ -11,7 +11,7 @@ from requests import Response
 from response_chat import response_chat_gpt
 from console import console
 from ExitCommands import exit_commands
-from ConfirmCommands import comands_confirm
+from ConfirmCommands import confirm_commands
 from text_to_speech import text_to_speech
 # chargue env variables
 load_dotenv()
@@ -35,7 +35,7 @@ def main(name: str, speech: bool) -> None:
         if content in exit_commands:
             confirmation: str = input(
                 "\n¿De verdad quieres salir? [yes, no] ").lower()
-            if confirmation in comands_confirm:
+            if confirmation in confirm_commands:
                 console.print(
                     f"\nAdiós {name}, espero volver a verte pronto y recuerda que eres el mejor y seras exitoso.", style="bold green")
                 break
