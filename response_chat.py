@@ -16,7 +16,7 @@ def response_chat_gpt(content: str) -> list[dict]:
         response: list[dict] = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=messages,
-            max_tokens=170,
+            max_tokens=190,
             temperature=0.3,
 
         )

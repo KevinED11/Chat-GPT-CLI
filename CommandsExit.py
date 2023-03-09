@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ComandsExit(Enum):
+class CommandsExit(Enum):
     EXIT: str = "exit"
     QUIT: str = "quit"
     Q: str = "q"
@@ -10,4 +10,4 @@ class ComandsExit(Enum):
     ADIOS: str = "adios"
 
 
-comands_exit: list = [c.value for c in ComandsExit]
+comands_exit: list[str] = [c.value for c in CommandsExit]
