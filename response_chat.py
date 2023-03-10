@@ -16,7 +16,7 @@ def response_chat_gpt(content: str) -> list[dict]:
             model="gpt-3.5-turbo",
             messages=messages,
             max_tokens=1000,  # 300
-            temperature=0.3,
+            temperature=0.5,
 
         )
 

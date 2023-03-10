@@ -1,17 +1,13 @@
-from subprocess import Popen
-from os import remove as os_remove, getcwd as os_getcwd
-from gtts import gTTS
 from os import getenv
 
 import openai
 import typer
 from dotenv import load_dotenv
-from requests import Response
 
 from response_chat import response_chat_gpt
 from console import console
-from ExitCommands import exit_commands
-from ConfirmCommands import confirm_commands
+from commands.ExitCommands import exit_commands
+from commands.ConfirmCommands import confirm_commands
 from text_to_speech import text_to_speech
 
 # chargue env variables
@@ -27,7 +23,8 @@ def main(name: str, speech: bool) -> None:
 
     while True:
 
-        content: str = input("\n¿Qué pregunta quieres hacerme? ").lower()
+        content: str = input(
+            "\n¿Qué pregunta quieres hacerme? ").lower()
 
         if content == "":
             continue
