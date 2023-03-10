@@ -27,8 +27,7 @@ def main(name: str, speech: bool) -> None:
 
     while True:
 
-        content: str = input(
-            "\n¿Qué pregunta quieres hacerme? ").lower()
+        content: str = input("\n¿Qué pregunta quieres hacerme? ").lower()
 
         if content == "":
             continue
