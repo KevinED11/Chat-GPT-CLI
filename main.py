@@ -1,53 +1,26 @@
-from os import getenv
+from os import getenv as os_getenv
 
-import openai
+
 import typer
 from dotenv import load_dotenv
 
-from response_chat import response_chat_gpt
-from console import console
-from commands.ExitCommands import exit_commands
-from commands.ConfirmCommands import confirm_commands
-from text_to_speech import text_to_speech
+
+from welcome_message import print_welcome_message
+from chat_loop import chat_loop
+
 
 # chargue env variables
 load_dotenv()
 
 
 def main(name: str, speech: bool) -> None:
+    openai_api_key: str = os_getenv("OPENAI_API_KEY")
 
-    openai.api_key = getenv("API_KEY")
+    # show welcome in terminal
+    print_welcome_message(name=name)
 
-    console.print("Welcome to Chat-GPT CLI", style="bold green")
-    console.print(f"Hello {name}", style="bold blue")
-
-    while True:
-
-        content: str = input(
-            "\n¿Qué pregunta quieres hacerme? ").lower()
-
-        if content == "":
-            continue
-
-        if content in exit_commands:
-            exit_confirmation: str = input(
-                "\n¿De verdad quieres salir? [yes, no] ").lower()
-
-            if exit_confirmation in confirm_commands:
-                console.print(
-                    f"\nAdiós {name}, espero volver a verte pronto y recuerda que eres el mejor y seras exitoso.", style="bold green")
-                break
-            else:
-                continue
-
-        response: list[dict] = response_chat_gpt(content=content)
-
-        response_text: str = response["choices"][0]["message"]["content"]
-
-        console.print(response_text, style="bold italic")
-
-        if speech:
-            text_to_speech(text=response_text)
+    # init Chat
+    chat_loop(openai_api_key=openai_api_key, name=name, speech=speech)
 
 
 if __name__ == "__main__":

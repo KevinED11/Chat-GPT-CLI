@@ -8,6 +8,7 @@ class ExitCommands(Enum):
     FINISH: str = "finish"
     SALIR: str = "salir"
     ADIOS: str = "adios"
+    BYE: str = "bye"
 
 
 exit_commands: list[str] = [c.value for c in ExitCommands]

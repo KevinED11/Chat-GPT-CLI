@@ -1,4 +1,4 @@
-#! /bin/zsh
+#! /bin/zsh  
 
 #python3 -m venv venv
 
