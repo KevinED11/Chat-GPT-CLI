@@ -1,4 +1,6 @@
 import openai
+
+
 from handle_user_question import handle_user_question
 from response_chat import response_chat_gpt
 from console import console
@@ -18,6 +20,7 @@ def chat_loop(openai_api_key: str, name: str, speech: bool) -> None:
         question_results_validate: tuple[str | None, bool] = handle_user_question(
             user_question=user_question, name=name)
 
+        # unpacking tupple for to make a desicion, question return None o text and should exit True or False
         question, should_exit = question_results_validate
 
         match should_exit:
@@ -29,6 +32,7 @@ def chat_loop(openai_api_key: str, name: str, speech: bool) -> None:
                 continue
 
         # Model gpt-3.5-turbo response based on the question
+
         question_response = response_chat_gpt(user_question=user_question)
 
         text_response: str = question_response["choices"][0]["message"]["content"]
