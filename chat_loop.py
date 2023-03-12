@@ -33,7 +33,8 @@ def chat_loop(openai_api_key: str, name: str, speech: bool) -> None:
 
         # Model gpt-3.5-turbo response based on the question
 
-        question_response = response_chat_gpt(user_question=user_question)
+        question_response: dict = response_chat_gpt(
+            user_question=user_question)
 
         text_response: str = question_response["choices"][0]["message"]["content"]
 

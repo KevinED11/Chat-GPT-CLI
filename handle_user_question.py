@@ -9,7 +9,9 @@ from console import console
 def handle_user_question(user_question: str, name: str) -> tuple[str | None, bool]:
 
     chat_continue: tuple[None, bool] = (None, False)
+
     chat_exit: tuple[None, bool] = (None, True)
+
     question_input: tuple[str, bool] = (user_question, False)
 
     match user_question:

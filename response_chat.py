@@ -1,5 +1,6 @@
 import openai
 
+
 # context assistant
 messages: list[dict[str, str]] = [
     {"role": "system", "content": "eres un asistente increible y eres el mas inteligente"},
