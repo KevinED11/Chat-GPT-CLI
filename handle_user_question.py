@@ -1,7 +1,7 @@
 from commands.ClearCommands import clear_commands
 from commands.ExitCommands import exit_commands
 from commands.ConfirmCommands import confirm_commands
-from os import system as os_system
+from clear_terminal import clear_terminal
 from welcome_message import print_welcome_message
 from console import console
 
@@ -26,7 +26,7 @@ def handle_user_question(user_question: str, name: str) -> tuple[str | None, boo
                 return chat_continue
 
         case (clear_comm) if clear_comm in clear_commands:
-            os_system(command="clear")
+            clear_terminal()
 
             print_welcome_message(name=name)
 

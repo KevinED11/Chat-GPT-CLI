@@ -2,25 +2,25 @@ from os import getenv as os_getenv
 
 
 import typer
-from dotenv import load_dotenv
 
 
+from config import load_config
 from welcome_message import print_welcome_message
 from chat_loop import chat_loop
-
-
-# chargue env variables
-load_dotenv()
+from clear_terminal import clear_terminal
 
 
 def main(name: str, speech: bool) -> None:
-    openai_api_key: str = os_getenv("OPENAI_API_KEY")
 
+    config: dict[str, any] = load_config()
+
+    clear_terminal()
     # show welcome in terminal
     print_welcome_message(name=name)
 
     # init Chat
-    chat_loop(openai_api_key=openai_api_key, name=name, speech=speech)
+    chat_loop(
+        openai_api_key=config["openai_api_key"], name=name, speech=speech)
 
 
 if __name__ == "__main__":
