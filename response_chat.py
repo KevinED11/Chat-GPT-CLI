@@ -3,13 +3,13 @@ import openai
 # context assistant
 messages: list[dict[str, str]] = [
     {"role": "system", "content": ""},
-    {"role": "user", "content": ""}
 
 ]
 
 
-def response_chat_gpt(content: str) -> dict:
-    messages[1]["content"] = content
+def response_chat_gpt(user_question: str) -> dict:
+    # messages[1]["content"] = content
+    messages.append({"role": "user", "content": user_question})
 
     try:
         response = openai.ChatCompletion.create(
@@ -20,15 +20,22 @@ def response_chat_gpt(content: str) -> dict:
 
         )
 
+        text_response_assistant: str = response["choices"][0]["message"]["content"]
+
         total_tokens_used: int = response["usage"]["total_tokens"]
-        if total_tokens_used >= 400:
-            tokens_to_remove: int = 200
-            messages[0]["content"] = messages[0]["content"][:-tokens_to_remove]
 
-            response["usage"]["total_tokens"] -= tokens_to_remove
+        messages.append(
+            {"role": "assistant", "content": text_response_assistant})
 
-        messages[0]["content"] += "\n" + f"User input: ({content})" + " => response = " + \
-            response["choices"][0]["message"]["content"] + "\n"
+        if total_tokens_used >= 3096:
+            tokens_to_remove: int = total_tokens_used - 1000
+
+            messages[0]["content"] = messages[0]["content"][::-tokens_to_remove]
+
+            total_tokens_used -= tokens_to_remove
+
+        messages[0]["content"] += "\n" + f"User input: ({user_question})" + " => response = " + \
+            text_response_assistant + "\n"
 
         print(messages)
 
