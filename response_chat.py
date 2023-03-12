@@ -9,7 +9,6 @@ messages: list[dict[str, str]] = [
 
 
 def response_chat_gpt(user_question: str) -> dict:
-    # messages[1]["content"] = content
     messages.append({"role": "user", "content": user_question})
 
     try:
@@ -23,20 +22,8 @@ def response_chat_gpt(user_question: str) -> dict:
 
         text_response_assistant: str = gpt_response_question["choices"][0]["message"]["content"]
 
-        # total_tokens_used: int = gpt_response_question["usage"]["total_tokens"]
-
         messages.append(
             {"role": "assistant", "content": text_response_assistant})
-
-        # if total_tokens_used >= 2500:
-        # tokens_to_remove: int = total_tokens_used - 2500
-
-        # messages[0]["content"] = messages[0]["content"][::-tokens_to_remove]
-
-        # total_tokens_used -= tokens_to_remove
-
-        # messages[0]["content"] += "\n" + f"User input: ({user_question})" + " => response = " + \
-        #   text_response_assistant + "\n"
 
         print(messages)
 

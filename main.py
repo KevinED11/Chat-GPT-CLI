@@ -1,8 +1,6 @@
-from os import getenv as os_getenv
 
 
 import typer
-from dotenv import load_dotenv
 
 
 from clear_terminal import clear_terminal
