@@ -1,17 +1,25 @@
-
-
+"""
+this is principal module of chatbot
+"""
 import typer
-
 
 from clear_terminal import clear_terminal
 from welcome_message import print_welcome_message
-from chat_loop import chat_loop
+from chat.chat_loop import chat_loop
 from config import load_config
 
 
 def main(name: str, speech: bool) -> None:
-    config: dict[str, any] = load_config()
+    """
+    principal function on my application
 
+    Args:
+        user_question (str): question of user
+
+    return:
+        None
+    """
+    config: dict[str, any] = load_config()
     clear_terminal()
 
     # show welcome in terminal
