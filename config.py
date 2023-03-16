@@ -1,6 +1,6 @@
 """
 This module define environment variables
-and configuration on program
+and program configuration
 """
 from os import getenv as os_getenv
 
@@ -9,9 +9,8 @@ from dotenv import load_dotenv
 
 
 def load_config() -> dict[str, any]:
-    """
-    Load configuration in the principal function
-    named main using environment variales
+    """ Load config in main function of chatbot
+    :return: dict[str, any]
     """
     load_dotenv()
 

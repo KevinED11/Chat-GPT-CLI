@@ -1,19 +1,17 @@
+"""
+This module call openai API with user question
+"""
 import openai
 
 
-# context assistant
-messages: list[dict[str, str]] = [
-    {"role": "system",
-     "content": "eres un asistente increible y eres el mas inteligente"
-     },
+def response_chat_gpt(user_question: str,
+                      messages: list[dict[str, str]]) -> dict:
+    """
+    :param user_question: question of the user
+    :param messages:
+    :return: dict
+    """
 
-
-]
-
-
-def response_chat_gpt(user_question: str) -> dict:
-    global messages
-    # messages[1]["content"] = user_question
     messages.append({"role": "user", "content": user_question})
 
     try:
@@ -35,8 +33,6 @@ def response_chat_gpt(user_question: str) -> dict:
 
             gpt_response_question["usage"]["total_tokens"] -= tokens_to_remove
 
-            messages = messages[:-tokens_to_remove]
-
             messages.insert(0, {"role": "system",
                                 "content": """eres un asistente increible y
                                 eres el mas inteligente"""
@@ -47,11 +43,11 @@ def response_chat_gpt(user_question: str) -> dict:
         messages.append(
             {"role": "assistant", "content": text_response_assistant})
 
-        print(f"despues del if:     {messages}")
+        print(f"despues del if: {messages}")
 
         print(gpt_response_question)
 
         return gpt_response_question
 
     except Exception as error:
-        return error
+        print(error)

@@ -1,17 +1,20 @@
 """
-This module handle user question for make a desicion based in the content
+This module handle user question for make a decision based in the content
 """
 from commands.clear_commands import clear_commands
 from commands.exit_commands import exit_commands
 from commands.confirm_commands import confirm_commands
-from clear_terminal import clear_terminal
-from welcome_message import print_welcome_message
+from chat.clear_terminal import clear_terminal
+from chat.welcome_message import print_welcome_message
 from console import console
 
 
 def handle_user_question(user_question: str,
                          name: str) -> tuple[str | None, bool]:
-    """
+    """ handle user question
+    :param user_question:
+    :param name:
+    :return: tuple[str | None, bool]
     """
 
     chat_continue: tuple[None, bool] = (None, False)

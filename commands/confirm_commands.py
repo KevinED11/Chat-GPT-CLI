@@ -1,5 +1,5 @@
 """
-This module define the confirm commands for the aplicattion
+This module define the confirm commands for the application
 """
 
 
@@ -8,7 +8,7 @@ from enum import Enum
 
 class ConfirmCommands(Enum):
     """
-    Class for define confirm exit commands
+    The class define confirm exit commands
     """
     YES: str = "yes"
     Y: str = "y"

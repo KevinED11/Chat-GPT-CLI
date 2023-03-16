@@ -1,12 +1,12 @@
 """
-This module define the exit commands for the aplicattion
+This module define the exit commands for the application
 """
 from enum import Enum
 
 
 class ExitCommands(Enum):
     """
-    Class for define options exit commands
+    The class define options exit commands
     """
     EXIT: str = "exit"
     QUIT: str = "quit"

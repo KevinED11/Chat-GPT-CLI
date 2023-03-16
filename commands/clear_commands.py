@@ -1,5 +1,5 @@
 """
-This module define the clear commands for the aplicattion
+This module define the clear commands for the application
 """
 
 from enum import Enum
@@ -7,7 +7,7 @@ from enum import Enum
 
 class ClearCommands(Enum):
     """
-    Class for define options clear commands
+    The class define options clear commands
     """
     CLEAR: str = "clear"
     CLS: str = "cls"

@@ -1,24 +1,32 @@
 """
+This module reproduce the
 """
 from subprocess import Popen
-from platform import system as platform_system
-from audio.os_platform.os_platform import OsPlatform
 
 
-supported_os: list[str] = [os.value for os in OsPlatform]
+from os_platform.user_os import user_os
+from os_platform.options_os_platform import OptionsOsPlatform
+from os_platform.supported_os import supported_os
 
 
 def play_audio_file(filename: str) -> None:
-    operating_system: str = platform_system()
+    """reproduce audio file based in operating system
+
+    :param filename: name of the mp3 file
+    :return: None
+    """
+    operating_system: str = user_os()
+
+    # default reproduction command for linux
+    command_play_audio: list[str] = ["cvlc", "--play-and-exit", filename]
 
     match operating_system:
         case os_platf if os_platf in supported_os:
 
-            if os_platf == OsPlatform.LINUX.value:
-                command_play_audio: list[str] = [
-                    "cvlc", "--play-and-exit", filename]
+            if os_platf == OptionsOsPlatform.LINUX.value:
+                command_play_audio: list[str] = command_play_audio
 
-            elif os_platf == OsPlatform.WINDOWS.value:
+            elif os_platf == OptionsOsPlatform.WINDOWS.value:
                 command_play_audio: list[str] = ["start", filename]
 
         case _:
