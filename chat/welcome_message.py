@@ -2,7 +2,7 @@
 This module print welcome message in terminal
 """
 
-from console import console
+from rich_sources.console import console
 
 
 def print_welcome_message(name: str) -> None:

@@ -6,7 +6,8 @@ from commands.exit_commands import exit_commands
 from commands.confirm_commands import confirm_commands
 from chat.clear_terminal import clear_terminal
 from chat.welcome_message import print_welcome_message
-from console import console
+from rich_sources.console import console
+from rich_sources.merged_tables import merged_tables
 
 
 def handle_user_question(user_question: str,
@@ -41,6 +42,9 @@ y recuerda que eres el mejor y seras exitoso.""",
             clear_terminal()
 
             print_welcome_message(name=name)
+
+            #print tables
+            console.print(merged_tables)
 
             return chat_continue
 

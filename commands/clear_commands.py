@@ -14,4 +14,4 @@ class ClearCommands(Enum):
     LIMPIAR: str = "limpiar"
 
 
-clear_commands: list[str] = [c.value for c in ClearCommands]
+clear_commands: list[str] = [command.value for command in ClearCommands]

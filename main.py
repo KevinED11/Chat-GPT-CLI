@@ -3,10 +3,13 @@ this is principal module of the chatbot
 """
 import typer
 
+
 from chat.clear_terminal import clear_terminal
 from chat.welcome_message import print_welcome_message
 from chat.chat_loop import chat_loop
 from config import load_config
+from rich_sources.merged_tables import merged_tables
+from rich_sources.console import console
 
 
 def main(name: str, speech: bool) -> None:
@@ -20,6 +23,9 @@ def main(name: str, speech: bool) -> None:
 
     # show welcome in terminal
     print_welcome_message(name=name)
+
+    # commands table
+    console.print("\n", merged_tables)
 
     # init Chat
     chat_loop(

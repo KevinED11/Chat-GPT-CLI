@@ -7,7 +7,7 @@ import openai
 
 from chat.handle_user_question import handle_user_question
 from chat.response_chat import response_chat_gpt
-from console import console
+from rich_sources.console import console
 from audio.text_to_speech import text_to_speech
 
 
