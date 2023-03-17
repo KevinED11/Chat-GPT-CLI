@@ -1,5 +1,5 @@
 """
-This is principal module in this folder
+This is the main module of this folder
 """
 
 from os import remove as os_remove, getcwd as os_getcwd

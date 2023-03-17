@@ -25,7 +25,10 @@ def main(name: str, speech: bool) -> None:
     print_welcome_message(name=name)
 
     # commands table
-    console.print("\n", merged_tables)
+    if merged_tables.columns:
+        console.print("\n", merged_tables)
+    else:
+        print("No data...")
 
     # init Chat
     chat_loop(

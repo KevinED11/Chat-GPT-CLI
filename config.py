@@ -19,5 +19,3 @@ def load_config() -> dict[str, any]:
     }
 
     return config
-
-

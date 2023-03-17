@@ -1,9 +1,8 @@
 """
-This module interact with openai API and
-request information for conversation
+This is the main module of this folder
 """
 import openai
-
+from rich.prompt import Prompt
 
 from chat.handle_user_question import handle_user_question
 from chat.response_chat import response_chat_gpt
@@ -12,7 +11,7 @@ from audio.text_to_speech import text_to_speech
 
 
 def chat_loop(openai_api_key: str, name: str, speech: bool) -> None:
-    """ Chat loop for clients to interact with GPT API
+    """ interact with the user
     :param openai_api_key:
     :param name:
     :param speech:
@@ -30,8 +29,7 @@ def chat_loop(openai_api_key: str, name: str, speech: bool) -> None:
     while True:
 
         # first question for interact with the chat
-        user_question: str = input(
-            "\n¿Qué pregunta quieres hacerme? ").lower()
+        user_question: str = Prompt.ask("\n [cyan2 bold]Qué pregunta quieres hacerme[/] [bold white]:grey_question:[/]").lower()
 
         # Use match for compare the content and make a desicion
         question_results_validate: tuple[str | None, bool] = \

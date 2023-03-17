@@ -2,6 +2,7 @@
 This module print welcome message in terminal
 """
 
+
 from rich_sources.console import console
 
 
@@ -10,5 +11,9 @@ def print_welcome_message(name: str) -> None:
     :param name: name of user
     :return: None
     """
-    console.print("Welcome to ChatGPT-CLI", style="bold green")
-    console.print(f"Hello {name}", style="bold blue")
+    console.print(
+        "\n  Welcome to ChatGPT-CLI [white]:globe_showing_americas:[/]",
+        style="bold green")
+    console.print(
+        f"  Hello [yellow]{name}[/] [red]:red_heart-emoji:[/]",
+        style="bold magenta2")

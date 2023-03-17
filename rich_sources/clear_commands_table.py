@@ -1,11 +1,14 @@
-from rich.table import Table
+"""
+This module define clear commands table
+"""
+from rich.table import Table, Column
 
+from commands.clear_commands import clear_commands
 
 table_clear_commands: Table = Table(
-                                    header_style="bold green",
-                                    border_style="bold green"
-                                    )
-table_clear_commands.add_column("Clear commands", justify="center")
-table_clear_commands.add_row("clear")
-table_clear_commands.add_row("limpiar")
-table_clear_commands.add_row("cls")
+    Column(header="Clear commands", justify="center"),
+    header_style="bold green",
+    border_style="bold green"
+)
+for command in clear_commands:
+    table_clear_commands.add_row(command)
