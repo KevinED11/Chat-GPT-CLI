@@ -29,11 +29,12 @@ def handle_user_question(user_question: str,
     match user_question:
         case (exit_comm) if exit_comm in exit_commands:
             exit_confirmation: str = Prompt.ask(
-                "\n[yellow1 bold]¿De verdad quieres salir?[/] ([green1 bold]yes[/], [red bold]no[/])").lower()
+                "\n[yellow1 bold] ¿De verdad quieres salir?[/] "
+                "([green1 bold]yes[/], [red bold]no[/])").lower()
 
             if exit_confirmation in confirm_commands:
-                console.print(f"""\nAdiós {name}, espero volver a verte pronto
-                              y recuerda que eres el mejor y seras exitoso.""",
+                console.print(f"""\n Adiós {name}, espero volver a verte pronto
+ y recuerda que eres el mejor y seras exitoso.""",
                               style="bold green")
 
                 return chat_exit

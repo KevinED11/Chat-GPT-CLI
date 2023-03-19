@@ -19,6 +19,7 @@ def main(name: str, speech: bool) -> None:
     :return: None
     """
     config: dict[str, any] = load_config()
+
     clear_terminal()
 
     # show welcome in terminal
