@@ -1,5 +1,5 @@
 """
-This module reproduce the
+This module plays the audio file
 """
 from subprocess import Popen
 

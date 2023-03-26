@@ -30,6 +30,8 @@ def chat_loop(openai_api_key: str, name: str, speech: bool) -> None:
          },
     ]
 
+    limit_calls_api: int = 0
+
     while True:
 
         # first question for interact with the chat
@@ -37,7 +39,7 @@ def chat_loop(openai_api_key: str, name: str, speech: bool) -> None:
                                         "quieres hacerme [/][bold white]"
                                         ":grey_question:[/]").lower()
 
-        # Use match for compare the content and make a desicion
+        # Use match for compare the question content and make a desicion
         question_results_validate: tuple[str | None, bool] = \
             handle_user_question(user_question=user_question, name=name)
 
@@ -53,38 +55,46 @@ def chat_loop(openai_api_key: str, name: str, speech: bool) -> None:
 
         # Model gpt-3.5-turbo response based on the question
         try:
-            calls: int = 1
-            question_response: dict = response_chat_gpt(
+
+            text_question_response: str = response_chat_gpt(
                 user_question=user_question, messages=messages)
-        except (TimeoutError, openai.APIError,
-                openai.OpenAIError, KeyError) as err:
-            if not isinstance(err, TimeoutError):
+
+        except (openai.APIError,
+                openai.OpenAIError, KeyboardInterrupt,
+                UnboundLocalError) as err:
+
+            if not isinstance(err, (KeyboardInterrupt,
+                                    UnboundLocalError)):
                 print(err)
+
                 break
 
-            calls += 1
+            limit_calls_api += 1
 
-            if calls == 3:
-                print("Exceeded maximum number of API calls (3)")
+            if limit_calls_api == 3:
+                console.print(
+                    "Exceeded maximum number of API calls (3) :cross_mark:",
+                    style="bold red")
                 break
+
             print(err)
 
-        #
-        text_response: str = question_response[
-            "choices"][0]["message"]["content"]
+            continue
 
         # Print answer to the question
         console.print(Panel.fit(
-            text_response,
+            text_question_response,
             border_style="yellow1",
             title="Answer to your question",
-            width=130),
-            style="bold italic white"
+            width=130,
+
+            style="bold italic white"),
         )
 
+        # Check if speech is true - text to speech
         if speech:
             try:
-                text_to_speech(text=text_response)
+                text_to_speech(text=text_question_response)
 
             except (RuntimeError,
                     FileNotFoundError, OSError,
@@ -93,6 +103,10 @@ def chat_loop(openai_api_key: str, name: str, speech: bool) -> None:
 
                 if not isinstance(err, KeyboardInterrupt):
                     speech: bool = False
-                    print(
-                        f"""Se desactivo la voz debido
-                        a un error del sistema:  {err}""")
+
+                    console.print(
+                        f"Se desactivo la voz debido \
+                        a un error del sistema: {err}",
+                        style="bold red")
+
+                continue
